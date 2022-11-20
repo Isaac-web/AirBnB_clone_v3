@@ -94,7 +94,7 @@ class FileStorage:
             objs = self.__objects.items()
             result = len(objs)
         else:
-            for key, value = self.__objects.items():
+            for key, value in self.__objects.items():
                 if cls.__name__ in key:
                     result += 1
         return result

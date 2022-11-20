@@ -2,7 +2,7 @@
 """
 Contains the class DBStorage
 """
-import models
+from import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models.city import City
@@ -97,4 +97,4 @@ class DBStorage:
             for c_name, c in classes.items():
                 result += self.__session.query(c).count()
         else:
-            result =  self.__session.query(cls).count()
+            result = self.__session.query(cls).count()

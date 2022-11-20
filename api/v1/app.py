@@ -4,7 +4,7 @@ Contains a flask app
 """
 from flask import Flask
 from models import storage
-import api.v1.views import app_views
+from api.v1.views import app_views
 import os
 
 app = Flask(__name__)

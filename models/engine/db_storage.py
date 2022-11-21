@@ -2,6 +2,7 @@
 """
 Contains the class DBStorage
 """
+
 import models
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
@@ -76,25 +77,30 @@ class DBStorage:
 
     def get(self, cls, id):
         """
-        Retrieves an object of the particular class
-        with a given id
+        Returns one object based on the class name and its ID, or
+        None if not found
         """
-        if not cls or not id:
+        if cls not in classes.values():
             return None
-        result = self.__session.query(cls).get(id)
-        if not result:
-            return None
-        return result
+
+        all_cls = models.storage.all(cls)
+        for value in all_cls.values():
+            if (value.id == id):
+                return value
+
+        return None
 
     def count(self, cls=None):
         """
-        Returns the number of objects of a given class
-        if no class is provided, the number of all objects
-        is returned
+        Counts and returns the number of objects in storage matching the given class
         """
-        result = 0
-        if cls is None:
-            for c_name, c in classes.items():
-                result += self.__session.query(c).count()
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(models.storage.all(clas).values())
         else:
-            result = self.__session.query(cls).count()
+            count = len(models.storage.all(cls).values())
+
+        return count

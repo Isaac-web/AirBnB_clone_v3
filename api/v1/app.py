@@ -20,9 +20,10 @@ def teardown_db(self):
 
 
 @app.errorhandler(404)
-def page_not_found(e):
-    """404ed"""
+def not_found():
+    """Returns not found 404"""
     return jsonify({"error": "Not found"}), 404
+
 
 if __name__ == '__main__':
     app.run(host=host, port=port, threaded=True)
